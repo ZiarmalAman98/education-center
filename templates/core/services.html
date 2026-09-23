@@ -1,0 +1,905 @@
+{% extends 'base.html' %}
+
+{% block title %}زموږ خدمتونه | Education Center{% endblock %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   EDUCATION CENTER — PREMIUM SERVICES PAGE
+   ========================================================= */
+
+:root {
+    --edu-primary: #0b6f68;
+    --edu-primary-dark: #064b49;
+    --edu-secondary: #0b3555;
+    --edu-accent: #20c4b2;
+    --edu-text: #18354d;
+    --edu-muted: #718295;
+    --edu-light: #f4f9fb;
+    --edu-border: #e4edf2;
+    --edu-white: #ffffff;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.services-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 92px 20px 120px;
+    color: white;
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(40, 211, 192, .22),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(255,255,255,.08),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #062b47 0%,
+            #075b64 55%,
+            #08766c 100%
+        );
+}
+
+.services-hero::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 50%;
+    right: -180px;
+    top: -170px;
+}
+
+.services-hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+    left: -130px;
+    bottom: -130px;
+}
+
+.services-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1150px;
+    margin: auto;
+}
+
+
+/* top label */
+
+.services-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px 14px;
+
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 100px;
+
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
+
+    color: #9ff4e9;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.services-eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #53ead8;
+    box-shadow: 0 0 0 5px rgba(83,234,216,.12);
+}
+
+
+/* heading */
+
+.services-hero h1 {
+    max-width: 760px;
+
+    margin: 20px 0 14px;
+
+    font-size: clamp(2.2rem, 5vw, 4.4rem);
+    line-height: 1.18;
+    font-weight: 850;
+
+    letter-spacing: -.04em;
+}
+
+.services-hero h1 span {
+    color: #5ce1d1;
+}
+
+.services-hero-description {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #d1e8ed;
+
+    font-size: 1.05rem;
+    line-height: 2;
+}
+
+
+/* breadcrumb */
+
+.services-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-top: 28px;
+
+    color: #a8cbd2;
+
+    font-size: .78rem;
+}
+
+.services-breadcrumb a {
+    color: white;
+    text-decoration: none;
+}
+
+.services-breadcrumb a:hover {
+    color: #7cecdf;
+}
+
+
+/* hero stats */
+
+.hero-stat-box {
+    position: absolute;
+
+    left: 20px;
+    bottom: -55px;
+
+    width: 205px;
+
+    padding: 23px 20px;
+
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.09);
+
+    backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.16);
+
+    text-align: center;
+}
+
+.hero-stat-number {
+    display: block;
+
+    color: #71eddd;
+
+    font-size: 2.6rem;
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+.hero-stat-label {
+    display: block;
+
+    margin-top: 9px;
+
+    color: #e0f1f3;
+
+    font-size: .75rem;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.services-main {
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 90px 20px 100px;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.services-intro {
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+
+    text-align: center;
+}
+
+.services-label {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: var(--edu-primary);
+
+    font-size: .72rem;
+    font-weight: 900;
+
+    letter-spacing: .12em;
+}
+
+.services-intro h2 {
+    margin: 0;
+
+    color: var(--edu-text);
+
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 850;
+}
+
+.services-intro h2 span {
+    color: var(--edu-primary);
+}
+
+.services-intro p {
+    margin: 12px auto 0;
+
+    color: var(--edu-muted);
+
+    font-size: .93rem;
+    line-height: 2;
+}
+
+
+/* =========================
+   CARDS GRID
+========================= */
+
+.services-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =========================
+   SERVICE CARD
+========================= */
+
+.service-card {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 270px;
+
+    padding: 30px;
+
+    border: 1px solid var(--edu-border);
+    border-radius: 25px;
+
+    background: rgba(255,255,255,.96);
+
+    box-shadow:
+        0 10px 35px rgba(18,55,76,.055);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.service-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    right: -90px;
+    bottom: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(20,179,164,.06);
+
+    transition: .4s;
+}
+
+.service-card::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--edu-accent),
+            #6bded2
+        );
+
+    transform: scaleX(0);
+    transform-origin: right;
+
+    transition: transform .35s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-9px);
+
+    border-color: #b9e4df;
+
+    box-shadow:
+        0 25px 55px rgba(17,67,82,.13);
+}
+
+.service-card:hover::before {
+    transform: scale(1.4);
+}
+
+.service-card:hover::after {
+    transform: scaleX(1);
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.service-icon {
+    display: grid;
+    place-items: center;
+
+    width: 62px;
+    height: 62px;
+
+    margin-bottom: 22px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e5faf7,
+            #d5f2ef
+        );
+
+    color: var(--edu-primary);
+
+    font-size: 1.8rem;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(11,111,104,.06);
+
+    transition: .35s;
+}
+
+.service-card:hover .service-icon {
+    transform: rotate(-5deg) scale(1.07);
+}
+
+
+/* different icon backgrounds */
+
+.service-card:nth-child(2) .service-icon {
+    background: #edf2ff;
+}
+
+.service-card:nth-child(3) .service-icon {
+    background: #fff5df;
+}
+
+.service-card:nth-child(4) .service-icon {
+    background: #f4edff;
+}
+
+.service-card:nth-child(5) .service-icon {
+    background: #eaf7ff;
+}
+
+.service-card:nth-child(6) .service-icon {
+    background: #fff0f4;
+}
+
+
+/* =========================
+   NUMBER
+========================= */
+
+.service-number {
+    position: absolute;
+
+    top: 28px;
+    left: 28px;
+
+    color: #a7b6c1;
+
+    font-size: .68rem;
+    font-weight: 900;
+
+    letter-spacing: .1em;
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.service-card h3 {
+    position: relative;
+    z-index: 2;
+
+    margin: 0 0 9px;
+
+    color: var(--edu-text);
+
+    font-size: 1.3rem;
+    font-weight: 850;
+}
+
+.service-card p {
+    position: relative;
+    z-index: 2;
+
+    min-height: 54px;
+
+    margin: 0;
+
+    color: var(--edu-muted);
+
+    font-size: .88rem;
+
+    line-height: 2;
+}
+
+
+/* =========================
+   LINK
+========================= */
+
+.service-link {
+    position: relative;
+    z-index: 2;
+
+    display: inline-flex;
+
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 19px;
+
+    color: var(--edu-primary);
+
+    font-size: .8rem;
+    font-weight: 850;
+
+    text-decoration: none;
+
+    transition: .25s;
+}
+
+.service-link span {
+    transition: transform .25s;
+}
+
+.service-link:hover {
+    color: var(--edu-primary-dark);
+}
+
+.service-link:hover span {
+    transform: translateX(-5px);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.services-empty {
+    grid-column: 1 / -1;
+
+    padding: 55px 25px;
+
+    border: 1px dashed #c5d7df;
+
+    border-radius: 24px;
+
+    background: #fbfdfe;
+
+    text-align: center;
+}
+
+.services-empty-icon {
+    font-size: 2.8rem;
+
+    margin-bottom: 15px;
+}
+
+.services-empty h3 {
+    margin: 0 0 8px;
+
+    color: var(--edu-text);
+}
+
+.services-empty p {
+    color: var(--edu-muted);
+}
+
+.services-empty a {
+    display: inline-flex;
+
+    margin-top: 10px;
+
+    padding: 11px 18px;
+
+    border-radius: 10px;
+
+    background: var(--edu-primary);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: .8rem;
+}
+
+
+/* =========================
+   BOTTOM CTA
+========================= */
+
+.services-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-top: 65px;
+
+    padding: 42px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(70,229,211,.15),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #082f4d,
+            #075f64
+        );
+
+    color: white;
+
+    box-shadow:
+        0 25px 55px rgba(7,57,77,.14);
+}
+
+.services-cta-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 650px;
+}
+
+.services-cta h2 {
+    margin: 0 0 10px;
+
+    font-size: 1.8rem;
+}
+
+.services-cta p {
+    margin: 0;
+
+    color: #cce4e8;
+
+    line-height: 1.9;
+}
+
+.cta-button {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 22px;
+
+    padding: 13px 20px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #075f64;
+
+    font-size: .82rem;
+    font-weight: 850;
+
+    text-decoration: none;
+
+    transition: .25s;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.15);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-hero {
+        padding: 75px 20px 85px;
+    }
+
+    .hero-stat-box {
+        position: static;
+
+        margin-top: 28px;
+    }
+
+    .services-main {
+        padding-top: 65px;
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .services-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .services-hero-description {
+        font-size: .9rem;
+    }
+
+    .services-main {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .service-card {
+        min-height: auto;
+
+        padding: 25px;
+    }
+
+    .service-card p {
+        min-height: auto;
+    }
+
+    .services-cta {
+        padding: 30px 24px;
+
+        border-radius: 22px;
+    }
+
+    .services-cta h2 {
+        font-size: 1.45rem;
+    }
+}
+</style>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="services-hero">
+
+    <div class="services-hero-inner">
+
+        <span class="services-eyebrow">
+            EDUCATION CENTER · OUR PROGRAMS
+        </span>
+
+        <h1>
+            زده‌کړه چې
+            <span>راتلونکی</span>
+            جوړوي
+        </h1>
+
+        <p class="services-hero-description">
+            زموږ مسلکي تعلیمي پروګرامونه تاسو سره مرسته کوي
+            چې نوې پوهه، عملي مهارتونه او د راتلونکي لپاره
+            اړین استعدادونه ترلاسه کړئ.
+        </p>
+
+        <div class="services-breadcrumb">
+            <a href="{% url 'welcome' %}">
+                Home
+            </a>
+
+            <span>›</span>
+
+            <span>
+                زموږ خدمتونه
+            </span>
+        </div>
+
+        <div class="hero-stat-box">
+
+            <span class="hero-stat-number">
+                {{ services|length }}
+            </span>
+
+            <span class="hero-stat-label">
+                فعال تعلیمي پروګرامونه
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="services-main">
+
+
+    <!-- INTRO -->
+
+    <div class="services-intro">
+
+        <span class="services-label">
+            LEARN · PRACTICE · GROW
+        </span>
+
+        <h2>
+            خپل مناسب
+            <span>کورس</span>
+            وټاکئ
+        </h2>
+
+        <p>
+            زموږ هر تعلیمي پروګرام د کیفیت، عملي تمرین،
+            مسلکي تدریس او د زده‌کوونکي د پرمختګ لپاره
+            په ځانګړې توګه ترتیب شوی دی.
+        </p>
+
+    </div>
+
+
+    <!-- SERVICES -->
+
+    <div class="services-grid">
+
+        {% for item in services %}
+
+        <article class="service-card">
+
+            <span class="service-number">
+                PROGRAM 0{{ forloop.counter }}
+            </span>
+
+            <div class="service-icon">
+                {{ item.icon }}
+            </div>
+
+            <h3>
+                {{ item.title }}
+            </h3>
+
+            <p>
+                {{ item.description }}
+            </p>
+
+            <a
+                href="{% url 'contact' %}"
+                class="service-link"
+            >
+                د نوم‌لیکنې لپاره اړیکه ونیسئ
+
+                <span>←</span>
+            </a>
+
+        </article>
+
+        {% empty %}
+
+        <div class="services-empty">
+
+            <div class="services-empty-icon">
+                📚
+            </div>
+
+            <h3>
+                تر اوسه کوم خدمت نه دی اضافه شوی
+            </h3>
+
+            <p>
+                مهرباني وکړئ لومړی یو تعلیمي پروګرام اضافه کړئ.
+            </p>
+
+            <a href="/admin/core/service/add/">
+                + نوی خدمت اضافه کړئ
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- CTA -->
+
+    <section class="services-cta">
+
+        <div class="services-cta-content">
+
+            <h2>
+                د خپل راتلونکي لپاره نن پیل وکړئ
+            </h2>
+
+            <p>
+                که د کوم کورس، شرایطو یا نوم‌لیکنې په اړه
+                پوښتنه لرئ، زموږ له ټیم سره اړیکه ونیسئ.
+            </p>
+
+            <a
+                href="{% url 'contact' %}"
+                class="cta-button"
+            >
+                اړیکه ونیسئ
+                <span>←</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+{% endblock %}

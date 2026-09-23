@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Programs | Education Center{% endblock %}
+{% block content %}
+<section class="public-hero"><div class="public-wrap"><p class="public-kicker">EDUCATIONAL PROGRAMS</p><h1>Choose the right <strong>course for you.</strong></h1><p class="public-hero-copy">Professional programmes designed to turn curiosity into knowledge and practical skill.</p></div></section>
+<section class="public-section"><div class="public-heading"><p class="public-label">EXPLORE PROGRAMS</p><h2>Learning made purposeful</h2><p>Choose a programme and contact us to learn about availability and enrollment.</p></div><div class="service-grid">{% for item in services %}<article class="public-card service-card-public"><div class="card-icon">{{ item.icon|default:'📘' }}</div><h3>{{ item.title }}</h3><p>{{ item.description }}</p><a href="{% url 'contact' %}">Contact us to enroll →</a></article>{% empty %}<article class="public-card"><div class="card-icon">📚</div><h3>No programs yet</h3><p>Please contact the centre for information about current courses.</p></article>{% endfor %}</div></section>
+{% endblock %}

@@ -1,0 +1,1261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   EDUCATION CENTER — PREMIUM ABOUT PAGE
+   ========================================================= */
+
+.about-page {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --dark: #0f172a;
+    --dark-2: #172554;
+    --text: #334155;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --light: #f8fafc;
+    --white: #fff;
+
+    direction: rtl;
+    color: var(--text);
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(37,99,235,.06),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 95% 55%,
+            rgba(59,130,246,.05),
+            transparent 30%
+        ),
+        #fff;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.about-hero-modern {
+    position: relative;
+    overflow: hidden;
+    padding: 95px 20px 120px;
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(59,130,246,.28),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(14,165,233,.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #020617 0%,
+            #0f172a 55%,
+            #172554 100%
+        );
+}
+
+.about-hero-modern::before {
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 50%;
+    top: -180px;
+    right: -100px;
+}
+
+.about-hero-modern::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 50%;
+    bottom: -150px;
+    left: -80px;
+}
+
+.about-hero-inner {
+    max-width: 1150px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 20px;
+    border-radius: 100px;
+
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+
+    color: #bfdbfe;
+    font-size: 13px;
+    font-weight: 600;
+
+    backdrop-filter: blur(12px);
+}
+
+.about-badge span:first-child {
+    color: #60a5fa;
+    font-size: 18px;
+}
+
+.about-hero-inner h1 {
+    margin: 24px 0 0;
+
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.15;
+    font-weight: 850;
+    letter-spacing: -1px;
+}
+
+.about-hero-inner h1 span {
+    color: #60a5fa;
+}
+
+.about-hero-inner p {
+    max-width: 650px;
+    margin: 22px auto 0;
+
+    color: #cbd5e1;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.about-breadcrumb {
+    margin-top: 28px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.about-breadcrumb a {
+    color: #dbeafe;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.about-breadcrumb a:hover {
+    color: #60a5fa;
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.about-container {
+    max-width: 1150px;
+    margin: -50px auto 0;
+
+    padding: 0 20px 90px;
+
+    position: relative;
+    z-index: 5;
+}
+
+/* =========================================================
+   INTRO STATS
+   ========================================================= */
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 75px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    box-shadow: 0 15px 45px rgba(15,23,42,.06);
+
+    transition: .3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 55px rgba(15,23,42,.10);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+    color: var(--primary);
+
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.stat-content strong {
+    display: block;
+
+    color: var(--dark);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.stat-content span {
+    display: block;
+
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* =========================================================
+   ABOUT INTRO
+   ========================================================= */
+
+.about-intro {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 70px;
+
+    align-items: center;
+
+    margin-bottom: 100px;
+}
+
+.section-label {
+    display: inline-flex;
+
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+
+    margin-bottom: 13px;
+}
+
+.about-text h2 {
+    margin: 0;
+
+    color: var(--dark);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.35;
+
+    font-weight: 850;
+}
+
+.about-text h2 span {
+    color: var(--primary);
+}
+
+.about-description {
+    margin: 20px 0 25px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+    line-height: 2;
+}
+
+/* =========================================================
+   CHECK LIST
+   ========================================================= */
+
+.about-checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.about-check {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: #f8fafc;
+
+    color: #1e293b;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: .25s;
+}
+
+.about-check:hover {
+    background: white;
+    border-color: #93c5fd;
+
+    transform: translateY(-2px);
+}
+
+.check-icon {
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dbeafe;
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.about-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 14px 24px;
+
+    border-radius: 14px;
+
+    background: var(--dark);
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 12px 25px rgba(15,23,42,.15);
+
+    transition: .3s ease;
+}
+
+.about-button:hover {
+    background: var(--primary);
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 30px rgba(37,99,235,.25);
+}
+
+.about-button span {
+    font-size: 18px;
+    transition: .3s;
+}
+
+.about-button:hover span {
+    transform: translateX(-5px);
+}
+
+/* =========================================================
+   PREMIUM VISUAL
+   ========================================================= */
+
+.about-visual {
+    position: relative;
+}
+
+.visual-main {
+    min-height: 410px;
+
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(96,165,250,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #0f172a,
+            #172554
+        );
+
+    box-shadow:
+        0 30px 80px rgba(15,23,42,.18);
+
+    padding: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.visual-main::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.10);
+}
+
+.visual-main::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(96,165,250,.18);
+}
+
+.visual-grid {
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .05;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.5) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.5) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+}
+
+.visual-small {
+    color: #93c5fd;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+.visual-content h3 {
+    margin: 0;
+
+    color: white;
+
+    font-size: 34px;
+    line-height: 1.3;
+
+    font-weight: 300;
+}
+
+.visual-content h3 strong {
+    display: block;
+
+    color: #60a5fa;
+
+    font-size: 48px;
+    font-weight: 850;
+}
+
+.visual-content p {
+    max-width: 280px;
+
+    margin: 18px auto 0;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* floating card */
+
+.visual-floating {
+    position: absolute;
+
+    right: -20px;
+    bottom: 35px;
+
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px 18px;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.96);
+
+    box-shadow: 0 18px 45px rgba(0,0,0,.18);
+
+    color: var(--dark);
+}
+
+.float-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+    color: var(--primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+.float-text small {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.float-text strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   VALUES SECTION
+   ========================================================= */
+
+.values-section {
+    padding-top: 70px;
+
+    border-top: 1px solid var(--border);
+}
+
+.values-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.values-header .section-label {
+    justify-content: center;
+}
+
+.values-header h2 {
+    margin: 0;
+
+    color: var(--dark);
+
+    font-size: clamp(2rem, 4vw, 2.8rem);
+
+    font-weight: 850;
+}
+
+.values-header h2 span {
+    color: var(--primary);
+}
+
+.values-header p {
+    max-width: 580px;
+
+    margin: 12px auto 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   VALUE CARDS
+   ========================================================= */
+
+.values-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.value-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 32px 27px;
+
+    border-radius: 22px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    transition: .35s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.09);
+}
+
+.value-card.featured {
+    background:
+        linear-gradient(
+            145deg,
+            #0f172a,
+            #172554
+        );
+
+    border-color: #172554;
+}
+
+.value-number {
+    color: #cbd5e1;
+
+    font-size: 42px;
+
+    line-height: 1;
+
+    font-weight: 850;
+
+    margin-bottom: 25px;
+}
+
+.value-card.featured .value-number {
+    color: #60a5fa;
+}
+
+.value-card h3 {
+    margin: 0 0 12px;
+
+    color: var(--dark);
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.value-card.featured h3 {
+    color: white;
+}
+
+.value-card p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+.value-card.featured p {
+    color: #cbd5e1;
+}
+
+.value-line {
+    position: absolute;
+
+    bottom: 0;
+    right: 0;
+
+    width: 0;
+    height: 4px;
+
+    background: var(--primary);
+
+    transition: .4s ease;
+}
+
+.value-card:hover .value-line,
+.value-card.featured .value-line {
+    width: 100%;
+}
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+
+.about-cta {
+    margin-top: 75px;
+
+    padding: 45px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 10% 50%,
+            rgba(59,130,246,.20),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #172554
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    color: white;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+.about-cta h3 {
+    margin: 0 0 8px;
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+.about-cta p {
+    margin: 0;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+.cta-button {
+    white-space: nowrap;
+
+    padding: 13px 23px;
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: var(--dark);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition: .3s;
+}
+
+.cta-button:hover {
+    background: #60a5fa;
+    color: white;
+
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .about-intro {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .about-visual {
+        order: -1;
+    }
+
+    .visual-main {
+        max-width: 650px;
+        margin: auto;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .about-hero-modern {
+        padding: 65px 18px 95px;
+    }
+
+    .about-hero-inner h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-container {
+        padding: 0 15px 60px;
+        margin-top: -35px;
+    }
+
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .about-checks {
+        grid-template-columns: 1fr;
+    }
+
+    .visual-main {
+        min-height: 350px;
+        padding: 25px;
+    }
+
+    .visual-content h3 {
+        font-size: 27px;
+    }
+
+    .visual-content h3 strong {
+        font-size: 39px;
+    }
+
+    .visual-floating {
+        right: 15px;
+        bottom: 20px;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-cta {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 30px 25px;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+
+
+<div class="about-page">
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="about-hero-modern">
+
+        <div class="about-hero-inner">
+
+            <div class="about-badge">
+                <span>✦</span>
+                <span>EDUCATION CENTER</span>
+            </div>
+
+            <h1>
+                زموږ
+                <span>په اړه</span>
+            </h1>
+
+            <p>
+                د کیفیت، پوهې او عملي مهارتونو له لارې د زده‌کوونکو
+                د روښانه راتلونکي لپاره کار کوو.
+            </p>
+
+            <div class="about-breadcrumb">
+                <a href="{% url 'home' %}">کور</a>
+                <span> / </span>
+                <span>زموږ په اړه</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="about-container">
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="about-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <div class="stat-content">
+
+                    <strong>کیفیت</strong>
+
+                    <span>
+                        باکیفیته تعلیمي خدمتونه
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ★
+                </div>
+
+                <div class="stat-content">
+
+                    <strong>مسلکي</strong>
+
+                    <span>
+                        تجربه لرونکي استادان
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ↗
+                </div>
+
+                <div class="stat-content">
+
+                    <strong>پرمختګ</strong>
+
+                    <span>
+                        د زده‌کوونکو روښانه راتلونکی
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT INTRO
+        ================================================== -->
+
+        <section class="about-intro">
+
+
+            <!-- TEXT -->
+
+            <div class="about-text">
+
+                <span class="section-label">
+                    WHO WE ARE
+                </span>
+
+                <h2>
+                    زده‌کړه چې
+                    <span>راتلونکی</span>
+                    جوړوي
+                </h2>
+
+                <p class="about-description">
+
+                    {{ site.welcome_text|default:"موږ د باکیفیته زده‌کړې او عملي مهارتونو لپاره کار کوو. زموږ موخه دا ده چې زده‌کوونکي په پوهه، اعتماد او مهارت سمبال کړو او هغوی د راتلونکي لپاره چمتو کړو." }}
+
+                </p>
+
+
+                <div class="about-checks">
+
+                    <div class="about-check">
+                        <span class="check-icon">✓</span>
+                        <span>باکیفیته تدریس</span>
+                    </div>
+
+                    <div class="about-check">
+                        <span class="check-icon">✓</span>
+                        <span>مسلکي استادان</span>
+                    </div>
+
+                    <div class="about-check">
+                        <span class="check-icon">✓</span>
+                        <span>منظم چاپېریال</span>
+                    </div>
+
+                    <div class="about-check">
+                        <span class="check-icon">✓</span>
+                        <span>عصري مهارتونه</span>
+                    </div>
+
+                </div>
+
+
+                <a href="{% url 'services' %}" class="about-button">
+
+                    <span>
+                        زموږ خدمات وګورئ
+                    </span>
+
+                    <span>
+                        ←
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- VISUAL -->
+
+            <div class="about-visual">
+
+                <div class="visual-main">
+
+                    <div class="visual-grid"></div>
+
+                    <div class="visual-content">
+
+                        <div class="visual-small">
+                            LEARN • GROW • SUCCEED
+                        </div>
+
+                        <h3>
+                            EDUCATION
+                            <strong>FOR LIFE</strong>
+                        </h3>
+
+                        <p>
+                            پوهه، مهارت او اعتماد —
+                            د بریالي راتلونکي درې مهم بنسټونه.
+                        </p>
+
+                    </div>
+
+
+                    <div class="visual-floating">
+
+                        <div class="float-icon">
+                            ★
+                        </div>
+
+                        <div class="float-text">
+
+                            <small>
+                                OUR PROMISE
+                            </small>
+
+                            <strong>
+                                Quality Learning
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             VALUES
+        ================================================== -->
+
+        <section class="values-section">
+
+            <div class="values-header">
+
+                <span class="section-label">
+                    OUR CORE VALUES
+                </span>
+
+                <h2>
+                    زموږ
+                    <span>بنسټیز ارزښتونه</span>
+                </h2>
+
+                <p>
+                    زموږ ټول تعلیمي فعالیتونه د کیفیت، صداقت او
+                    دوامداره پرمختګ پر بنسټ ولاړ دي.
+                </p>
+
+            </div>
+
+
+            <div class="values-grid">
+
+
+                <!-- Vision -->
+
+                <article class="value-card">
+
+                    <div class="value-number">
+                        01
+                    </div>
+
+                    <h3>
+                        زموږ لیدلوری
+                    </h3>
+
+                    <p>
+                        یو باعلمه، بااستعداده او بریالی نسل
+                        روزل چې د خپل راتلونکي لپاره چمتو وي.
+                    </p>
+
+                    <div class="value-line"></div>
+
+                </article>
+
+
+                <!-- Mission -->
+
+                <article class="value-card featured">
+
+                    <div class="value-number">
+                        02
+                    </div>
+
+                    <h3>
+                        زموږ ماموریت
+                    </h3>
+
+                    <p>
+                        د هر زده‌کوونکي استعداد پیاوړی کول او
+                        هغه ته د زده‌کړې او پرمختګ مناسب فرصت برابرول.
+                    </p>
+
+                    <div class="value-line"></div>
+
+                </article>
+
+
+                <!-- Values -->
+
+                <article class="value-card">
+
+                    <div class="value-number">
+                        03
+                    </div>
+
+                    <h3>
+                        زموږ ارزښتونه
+                    </h3>
+
+                    <p>
+                        صداقت، کیفیت، مسلکیتوب، درناوی او
+                        دوامداره پرمختګ زموږ مهم ارزښتونه دي.
+                    </p>
+
+                    <div class="value-line"></div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CTA
+        ================================================== -->
+
+        <section class="about-cta">
+
+            <div>
+
+                <h3>
+                    غواړئ له موږ سره زده‌کړه پیل کړئ؟
+                </h3>
+
+                <p>
+                    زموږ له خدماتو او تعلیمي پروګرامونو څخه ځان خبر کړئ.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'contact' %}"
+                class="cta-button"
+            >
+                اړیکه ونیسئ ←
+            </a>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,819 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ site.center_name|default:'Education Center' }} | کور
+{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+        background: #f8fafc;
+
+        border-bottom: 1px solid #e2e8f0;
+
+        padding: 85px 20px 75px;
+    }
+
+    .welcome-language {
+        position: absolute;
+        z-index: 5;
+        top: 18px;
+        left: 24px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 10px;
+        border: 1px solid #d7e8e7;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 8px 20px rgba(15, 118, 110, .10);
+        direction: rtl;
+    }
+
+    .welcome-language span { color: #64748b; font-size: 11px; font-weight: 700; }
+    .welcome-language button { border: 0; border-radius: 7px; padding: 7px 10px; background: #eff8f7; color: #0f766e; font: 700 12px inherit; cursor: pointer; }
+    .welcome-language button.primary { background: #0f766e; color: #fff; }
+
+    .hero-container {
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+
+        grid-template-columns: 1.1fr 0.9fr;
+
+        gap: 70px;
+
+        align-items: center;
+    }
+
+    .hero-content {
+        max-width: 650px;
+    }
+
+    .hero-label {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 6px 12px;
+
+        background: #ccfbf1;
+        color: #0f766e;
+
+        border-radius: 7px;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        direction: ltr;
+
+        margin-bottom: 18px;
+    }
+
+    .hero h1 {
+        color: #0f172a;
+
+        font-size: clamp(36px, 5vw, 58px);
+
+        line-height: 1.25;
+
+        font-weight: 800;
+
+        margin: 0 0 20px;
+    }
+
+    .hero h1 span {
+        color: #0f766e;
+    }
+
+    .hero-description {
+        color: #64748b;
+
+        font-size: 16px;
+
+        max-width: 600px;
+
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+    }
+
+    .btn-primary-custom {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 12px 22px;
+
+        background: #0f766e;
+        color: white;
+
+        border-radius: 10px;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        transition: all 0.2s ease;
+    }
+
+    .btn-primary-custom:hover {
+        background: #115e59;
+        color: white;
+
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-custom {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 11px 22px;
+
+        background: white;
+        color: #334155;
+
+        border: 1px solid #cbd5e1;
+
+        border-radius: 10px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+    .btn-outline-custom:hover {
+        color: #0f766e;
+
+        border-color: #0f766e;
+
+        background: #f0fdfa;
+    }
+
+
+    /* =========================
+       HERO VISUAL
+    ========================= */
+
+    .hero-visual {
+        position: relative;
+
+        min-height: 390px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-card {
+        width: 290px;
+        height: 290px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 28px;
+
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+
+        position: relative;
+
+        z-index: 2;
+    }
+
+    .hero-card-icon {
+        width: 150px;
+        height: 150px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #f0fdfa;
+
+        border-radius: 50%;
+
+        font-size: 80px;
+    }
+
+    .floating-card {
+        position: absolute;
+
+        z-index: 3;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 12px;
+
+        padding: 12px 16px;
+
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .floating-card strong {
+        display: block;
+
+        color: #0f172a;
+
+        font-size: 12px;
+    }
+
+    .floating-card small {
+        display: block;
+
+        color: #64748b;
+
+        font-size: 10px;
+
+        margin-top: 2px;
+    }
+
+    .floating-one {
+        top: 45px;
+        right: 0;
+    }
+
+    .floating-two {
+        bottom: 50px;
+        left: 0;
+    }
+
+
+    /* =========================
+       TRUST BAR
+    ========================= */
+
+    .trust-section {
+        padding: 25px 20px;
+
+        background: white;
+
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .trust-container {
+        max-width: 1000px;
+
+        margin: auto;
+
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+    }
+
+    .trust-item {
+        text-align: center;
+
+        padding: 8px;
+    }
+
+    .trust-number {
+        color: #0f766e;
+
+        font-size: 24px;
+        font-weight: 800;
+
+        line-height: 1.2;
+    }
+
+    .trust-label {
+        color: #64748b;
+
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .services-section {
+        background: white;
+    }
+
+    .services-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 22px;
+    }
+
+    .service-card {
+        padding: 28px;
+
+        background: white;
+
+        border: 1px solid #e2e8f0;
+
+        border-radius: 16px;
+
+        transition: all 0.25s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+
+        border-color: #99f6e4;
+
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    .service-icon {
+        width: 52px;
+        height: 52px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #f0fdfa;
+
+        color: #0f766e;
+
+        border-radius: 12px;
+
+        font-size: 24px;
+
+        margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+        color: #0f172a;
+
+        font-size: 18px;
+        font-weight: 700;
+
+        margin-bottom: 8px;
+    }
+
+    .service-card p {
+        color: #64748b;
+
+        font-size: 13px;
+
+        margin: 0;
+    }
+
+    .services-more {
+        text-align: center;
+
+        margin-top: 30px;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta-section {
+        padding: 70px 20px;
+    }
+
+    .cta-box {
+        max-width: 1100px;
+
+        margin: auto;
+
+        padding: 50px 40px;
+
+        background: #f0fdfa;
+
+        border: 1px solid #ccfbf1;
+
+        border-radius: 20px;
+
+        text-align: center;
+    }
+
+    .cta-box h2 {
+        color: #0f172a;
+
+        font-size: 30px;
+        font-weight: 800;
+
+        margin-bottom: 10px;
+    }
+
+    .cta-box p {
+        color: #64748b;
+
+        max-width: 600px;
+
+        margin: 0 auto 25px;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+        .hero-container {
+            grid-template-columns: 1fr;
+
+            gap: 40px;
+
+            text-align: center;
+        }
+
+        .hero-content {
+            margin: auto;
+        }
+
+        .hero-description {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            justify-content: center;
+        }
+
+        .hero-visual {
+            min-height: 330px;
+        }
+
+        .services-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        .hero {
+            padding: 55px 16px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+        }
+
+        .hero-description {
+            font-size: 14px;
+        }
+
+        .hero-visual {
+            min-height: 280px;
+        }
+
+        .hero-card {
+            width: 220px;
+            height: 220px;
+        }
+
+        .hero-card-icon {
+            width: 115px;
+            height: 115px;
+
+            font-size: 60px;
+        }
+
+        .floating-card {
+            padding: 9px 12px;
+        }
+
+        .floating-one {
+            right: 0;
+            top: 20px;
+        }
+
+        .floating-two {
+            left: 0;
+            bottom: 20px;
+        }
+
+        .trust-container {
+            grid-template-columns: 1fr;
+        }
+
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cta-box {
+            padding: 35px 20px;
+        }
+
+        .cta-box h2 {
+            font-size: 24px;
+        }
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="welcome-language">
+    <span>ژبه وټاکئ</span>
+    <form method="post" action="{% url 'set_language' %}">{% csrf_token %}<input type="hidden" name="next" value="/"><button class="primary" type="submit" name="language" value="ps">پښتو</button></form>
+    <form method="post" action="{% url 'set_language' %}">{% csrf_token %}<input type="hidden" name="next" value="/"><button type="submit" name="language" value="en">English</button></form>
+</div>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                WELCOME TO EDUCATION CENTER
+            </div>
+
+            <h1>
+                ستاسو د
+                <span>روښانه راتلونکي</span>
+                لپاره زده‌کړه
+            </h1>
+
+            <p class="hero-description">
+
+                {{ site.welcome_text|default:'موږ تاسو ته د کیفیت لرونکې زده کړې، عملي مهارتونو او مسلکي پرمختګ لپاره مناسب چاپېریال برابروو.' }}
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'services' %}"
+                   class="btn-primary-custom">
+                    زموږ پروګرامونه
+                    <span style="margin-right:8px;">←</span>
+                </a>
+
+                <a href="{% url 'contact' %}"
+                   class="btn-outline-custom">
+                    اړیکه ونیسئ
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Hero Visual -->
+
+        <div class="hero-visual">
+
+            <div class="hero-card">
+
+                <div class="hero-card-icon">
+                    🎓
+                </div>
+
+            </div>
+
+
+            <div class="floating-card floating-one">
+
+                <strong>
+                    👨‍🏫 مسلکي ښوونکي
+                </strong>
+
+                <small>
+                    کیفیت لرونکې زده کړه
+                </small>
+
+            </div>
+
+
+            <div class="floating-card floating-two">
+
+                <strong>
+                    📚 عملي زده‌کړه
+                </strong>
+
+                <small>
+                    Learn · Practice · Grow
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TRUST
+========================= -->
+
+<section class="trust-section">
+
+    <div class="trust-container">
+
+        <div class="trust-item">
+
+            <div class="trust-number">
+                {{ services|length }}+
+            </div>
+
+            <div class="trust-label">
+                مهم تعلیمي پروګرامونه
+            </div>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-number">
+                ۱۰۰٪
+            </div>
+
+            <div class="trust-label">
+                عملي زده‌کړه
+            </div>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-number">
+                ∞
+            </div>
+
+            <div class="trust-label">
+                د پرمختګ فرصت
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section class="section services-section">
+
+    <div class="container-custom">
+
+        <div class="section-title">
+
+            <div class="small-title">
+                LEARN · PRACTICE · GROW
+            </div>
+
+            <h2>
+                زموږ
+                <span style="color:#0f766e;">
+                    تعلیمي پروګرامونه
+                </span>
+            </h2>
+
+            <p>
+                هغه پروګرامونه چې تاسو سره د نوې پوهې او عملي مهارتونو
+                په ترلاسه کولو کې مرسته کوي.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+            {% for item in services %}
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+
+                        {% if item.icon %}
+                            {{ item.icon }}
+                        {% else %}
+                            📘
+                        {% endif %}
+
+                    </div>
+
+                    <h3>
+                        {{ item.title }}
+                    </h3>
+
+                    <p>
+                        {{ item.description|default:'د کیفیت لرونکې زده کړې او عملي مهارتونو لپاره مناسب تعلیمي پروګرام.' }}
+                    </p>
+
+                </div>
+
+            {% empty %}
+
+                <div class="service-card"
+                     style="grid-column:1/-1;text-align:center;">
+
+                    <div class="service-icon"
+                         style="margin:0 auto 18px;">
+                        📚
+                    </div>
+
+                    <h3>
+                        تعلیمي پروګرامونه
+                    </h3>
+
+                    <p>
+                        ډېر ژر به زموږ تعلیمي پروګرامونه دلته خپاره شي.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="services-more">
+
+            <a href="{% url 'services' %}"
+               class="btn-outline-custom">
+
+                ټول پروګرامونه وګورئ
+
+                <span style="margin-right:8px;">
+                    ←
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta-section">
+
+    <div class="cta-box">
+
+        <h2>
+            خپل راتلونکی له نن څخه جوړ کړئ
+        </h2>
+
+        <p>
+            د زده کړې، مهارتونو او مسلکي پرمختګ لپاره
+            له موږ سره یوځای شئ.
+        </p>
+
+        <a href="{% url 'contact' %}"
+           class="btn-primary-custom">
+
+            اړیکه ونیسئ
+
+            <span style="margin-right:8px;">
+                ←
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

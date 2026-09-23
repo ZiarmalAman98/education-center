@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}News | Education Center{% endblock %}
+{% block content %}
+<section class="public-hero"><div class="public-wrap"><p class="public-kicker">NEWS & ANNOUNCEMENTS</p><h1>Stories from our <strong>learning community.</strong></h1><p class="public-hero-copy">The latest activities, announcements, and updates from Education Center.</p></div></section>
+<section class="public-section"><div class="public-heading"><p class="public-label">LATEST UPDATES</p><h2>What's happening</h2></div><div class="news-grid-public">{% for item in news %}<article class="public-card news-card-public"><div class="news-date-public"><b>{{ item.created_at|date:'d' }}</b><small>{{ item.created_at|date:'M'|upper }}</small></div><div><p class="public-label">ANNOUNCEMENT</p><h2>{{ item.title }}</h2><p>{{ item.body|truncatechars:170 }}</p><a href="{% url 'news_detail' item.pk %}">Read full news →</a></div></article>{% empty %}<article class="public-card"><div class="card-icon">📰</div><h3>No news yet</h3><p>Updates and announcements will appear here.</p></article>{% endfor %}</div></section>
+{% endblock %}

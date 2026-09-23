@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Contact | Education Center{% endblock %}
+{% block content %}
+<section class="public-hero"><div class="public-wrap"><p class="public-kicker">CONTACT EDUCATION CENTER</p><h1>Let's start a <strong>conversation.</strong></h1><p class="public-hero-copy">Ask about programmes, enrollment, or anything else you would like to know.</p></div></section>
+<section class="public-section"><div class="contact-grid"><aside class="contact-info"><p class="public-label">GET IN TOUCH</p><h2>We are here to help</h2><p><strong>Phone</strong><br>{{ site.phone|default:'Contact details will be available soon' }}</p><p><strong>Email</strong><br>{{ site.email|default:'Contact details will be available soon' }}</p><p><strong>Address</strong><br>{{ site.address|default:'Visit the centre for more information' }}</p></aside><form method="post" class="contact-form-public">{% csrf_token %}<p class="public-label">SEND A MESSAGE</p><h2>How can we help?</h2>{{ form.as_p }}<button class="public-button" type="submit">Send message</button></form></div></section>
+{% endblock %}

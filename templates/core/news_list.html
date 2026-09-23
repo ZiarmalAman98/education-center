@@ -1,0 +1,869 @@
+{% extends 'base.html' %}
+
+{% block title %}خبرونه او اعلانونه | Education Center{% endblock %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   EDUCATION CENTER — PREMIUM NEWS PAGE
+   ========================================================= */
+
+:root {
+    --news-primary: #0b6f68;
+    --news-primary-dark: #064d4a;
+    --news-blue: #0a3554;
+    --news-accent: #28c7b5;
+    --news-text: #18364e;
+    --news-muted: #728396;
+    --news-bg: #f5f9fb;
+    --news-border: #e2ebf0;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.news-hero {
+    position: relative;
+    overflow: hidden;
+
+    padding: 88px 20px 105px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(47, 216, 195, .20),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(255,255,255,.08),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #062b47 0%,
+            #075967 55%,
+            #08766d 100%
+        );
+}
+
+
+/* decorative circles */
+
+.news-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: -220px;
+    right: -130px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 50%;
+}
+
+.news-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    bottom: -170px;
+    left: -100px;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    border-radius: 50%;
+}
+
+
+.news-hero-inner {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1150px;
+
+    margin: auto;
+}
+
+
+/* eyebrow */
+
+.news-eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px 15px;
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    border-radius: 100px;
+
+    background: rgba(255,255,255,.08);
+
+    backdrop-filter: blur(12px);
+
+    color: #9cf1e6;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .1em;
+}
+
+.news-eyebrow::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #5be4d3;
+
+    box-shadow:
+        0 0 0 5px rgba(91,228,211,.12);
+}
+
+
+/* title */
+
+.news-hero h1 {
+    max-width: 720px;
+
+    margin: 20px 0 14px;
+
+    font-size: clamp(2.3rem, 5vw, 4.2rem);
+
+    line-height: 1.2;
+
+    font-weight: 900;
+
+    letter-spacing: -.04em;
+}
+
+.news-hero h1 span {
+    color: #62e3d4;
+}
+
+
+/* description */
+
+.news-hero-description {
+    max-width: 620px;
+
+    margin: 0;
+
+    color: #d1e8ec;
+
+    font-size: 1rem;
+
+    line-height: 2;
+}
+
+
+/* breadcrumb */
+
+.news-breadcrumb {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 27px;
+
+    color: #a9cbd2;
+
+    font-size: .78rem;
+}
+
+.news-breadcrumb a {
+    color: white;
+
+    text-decoration: none;
+}
+
+.news-breadcrumb a:hover {
+    color: #70e8da;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.news-main {
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 78px 20px 100px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.news-intro {
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+
+    text-align: center;
+}
+
+.news-label {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: var(--news-primary);
+
+    font-size: .72rem;
+
+    font-weight: 900;
+
+    letter-spacing: .13em;
+}
+
+.news-intro h2 {
+    margin: 0;
+
+    color: var(--news-text);
+
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+
+    font-weight: 850;
+}
+
+.news-intro h2 span {
+    color: var(--news-primary);
+}
+
+.news-intro p {
+    margin: 12px auto 0;
+
+    color: var(--news-muted);
+
+    font-size: .92rem;
+
+    line-height: 2;
+}
+
+
+/* =========================================================
+   NEWS GRID
+========================================================= */
+
+.news-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+   NEWS CARD
+========================================================= */
+
+.news-card {
+    position: relative;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns: 90px 1fr;
+
+    gap: 25px;
+
+    min-height: 245px;
+
+    padding: 28px;
+
+    border: 1px solid var(--news-border);
+
+    border-radius: 25px;
+
+    background: white;
+
+    box-shadow:
+        0 10px 35px rgba(20,55,75,.055);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+
+/* top line */
+
+.news-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--news-accent),
+            #63dcd0
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: right;
+
+    transition: .35s;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+
+    border-color: #b8e2dd;
+
+    box-shadow:
+        0 25px 55px rgba(18,65,80,.13);
+}
+
+.news-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.news-date {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 78px;
+    height: 88px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e7faf7,
+            #d8f3ef
+        );
+
+    color: var(--news-primary);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(11,111,104,.06);
+
+    transition: .35s;
+}
+
+.news-card:hover .news-date {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.news-date strong {
+    font-size: 2rem;
+
+    line-height: 1;
+
+    font-weight: 900;
+}
+
+.news-date span {
+    margin-top: 7px;
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.news-content {
+    min-width: 0;
+}
+
+
+/* category */
+
+.news-category {
+    display: inline-flex;
+
+    padding: 5px 10px;
+
+    border-radius: 100px;
+
+    background: #eef8f7;
+
+    color: var(--news-primary);
+
+    font-size: .67rem;
+
+    font-weight: 850;
+}
+
+
+/* title */
+
+.news-content h2 {
+    margin: 11px 0 9px;
+
+    font-size: 1.25rem;
+
+    line-height: 1.55;
+}
+
+.news-content h2 a {
+    color: var(--news-text);
+
+    text-decoration: none;
+
+    transition: .25s;
+}
+
+.news-content h2 a:hover {
+    color: var(--news-primary);
+}
+
+
+/* body */
+
+.news-content p {
+    margin: 0;
+
+    color: var(--news-muted);
+
+    font-size: .85rem;
+
+    line-height: 1.95;
+}
+
+
+/* read more */
+
+.news-read-more {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 17px;
+
+    color: var(--news-primary);
+
+    font-size: .78rem;
+
+    font-weight: 850;
+
+    text-decoration: none;
+}
+
+.news-read-more span {
+    transition: transform .25s;
+}
+
+.news-read-more:hover {
+    color: var(--news-primary-dark);
+}
+
+.news-read-more:hover span {
+    transform: translateX(-5px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.news-empty {
+    grid-column: 1 / -1;
+
+    padding: 65px 25px;
+
+    border: 1px dashed #bfd3dc;
+
+    border-radius: 25px;
+
+    background: #fbfdfe;
+
+    text-align: center;
+}
+
+.news-empty-icon {
+    display: grid;
+
+    place-items: center;
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 22px;
+
+    background: #eaf7f5;
+
+    font-size: 2rem;
+}
+
+.news-empty h3 {
+    margin: 0 0 8px;
+
+    color: var(--news-text);
+
+    font-size: 1.2rem;
+}
+
+.news-empty p {
+    margin: 0;
+
+    color: var(--news-muted);
+
+    font-size: .85rem;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.news-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-top: 65px;
+
+    padding: 43px;
+
+    border-radius: 28px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(66,229,210,.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #082f4d,
+            #075f64
+        );
+
+    box-shadow:
+        0 25px 55px rgba(7,57,77,.14);
+}
+
+.news-cta::after {
+    content: "NEWS";
+
+    position: absolute;
+
+    right: 35px;
+    bottom: -28px;
+
+    color: rgba(255,255,255,.04);
+
+    font-size: 7rem;
+
+    font-weight: 900;
+}
+
+.news-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+}
+
+.news-cta h2 {
+    margin: 0 0 10px;
+
+    font-size: 1.75rem;
+}
+
+.news-cta p {
+    margin: 0;
+
+    color: #cce5e8;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .news-hero {
+        padding: 70px 18px 80px;
+    }
+
+    .news-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .news-main {
+        padding: 60px 15px 80px;
+    }
+
+    .news-card {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+        padding: 24px;
+    }
+
+    .news-date {
+        width: 75px;
+        height: 78px;
+    }
+
+    .news-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .news-cta {
+        padding: 30px 24px;
+    }
+
+}
+</style>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="news-hero">
+
+    <div class="news-hero-inner">
+
+        <span class="news-eyebrow">
+            EDUCATION CENTER · NEWS & UPDATES
+        </span>
+
+        <h1>
+            خبرونه او
+            <span>اعلانونه</span>
+        </h1>
+
+        <p class="news-hero-description">
+            زموږ د مرکز وروستي خبرونه، مهم اعلانونه،
+            تعلیمي معلومات او تازه فعالیتونه دلته وګورئ.
+        </p>
+
+        <div class="news-breadcrumb">
+
+            <a href="{% url 'welcome' %}">
+                Home
+            </a>
+
+            <span>›</span>
+
+            <span>
+                News
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="news-main">
+
+
+    <!-- INTRO -->
+
+    <div class="news-intro">
+
+        <span class="news-label">
+            LATEST NEWS
+        </span>
+
+        <h2>
+            د مرکز
+            <span>وروستي معلومات</span>
+        </h2>
+
+        <p>
+            د Education Center له وروستیو خبرونو،
+            اعلانونو او مهمو تعلیمي فعالیتونو څخه ځان خبر وساتئ.
+        </p>
+
+    </div>
+
+
+    <!-- NEWS -->
+
+    <div class="news-grid">
+
+        {% for item in news %}
+
+        <article class="news-card">
+
+
+            <!-- DATE -->
+
+            <div class="news-date">
+
+                <strong>
+                    {{ item.published_at|date:'d' }}
+                </strong>
+
+                <span>
+                    {{ item.published_at|date:'M' }}
+                </span>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="news-content">
+
+                {% if item.category %}
+
+                <span class="news-category">
+                    {{ item.category }}
+                </span>
+
+                {% endif %}
+
+
+                <h2>
+
+                    <a href="{% url 'news_detail' item.pk %}">
+                        {{ item.title }}
+                    </a>
+
+                </h2>
+
+
+                <p>
+                    {{ item.body|truncatechars:180 }}
+                </p>
+
+
+                <a
+                    href="{% url 'news_detail' item.pk %}"
+                    class="news-read-more"
+                >
+
+                    بشپړ خبر ولولئ
+
+                    <span>←</span>
+
+                </a>
+
+            </div>
+
+        </article>
+
+        {% empty %}
+
+
+        <!-- EMPTY -->
+
+        <div class="news-empty">
+
+            <div class="news-empty-icon">
+                📰
+            </div>
+
+            <h3>
+                تر اوسه کوم خبر نشته
+            </h3>
+
+            <p>
+                کله چې نوی خبر اضافه شي، دلته به ښکاره شي.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- CTA -->
+
+    <section class="news-cta">
+
+        <div class="news-cta-content">
+
+            <h2>
+                له موږ سره تازه پاتې شئ
+            </h2>
+
+            <p>
+                د کورسونو، نوم‌لیکنې او نورو معلوماتو لپاره
+                زموږ له مرکز سره اړیکه ونیسئ.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+{% endblock %}

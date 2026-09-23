@@ -1,0 +1,401 @@
+.mis-shell {
+    min-height: calc(100vh - 116px);
+    background: #f4f7fb;
+    display: grid;
+    grid-template-columns: 265px 1fr;
+    direction: ltr
+}
+
+.mis-sidebar,
+.mis-content {
+    direction: rtl
+}
+
+.mis-sidebar {
+    background: #102a43;
+    color: #b7c6d6;
+    padding: 22px 14px
+}
+
+.mis-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    padding: 7px 9px;
+    margin-bottom: 27px
+}
+
+.mis-brand>span {
+    display: grid;
+    place-items: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: #18a999;
+    font-size: .8rem;
+    font-weight: 700
+}
+
+.mis-brand b {
+    line-height: 1.15;
+    font-size: .9rem
+}
+
+.mis-brand small {
+    font-size: .57rem;
+    letter-spacing: .13em;
+    color: #8fa8bc
+}
+
+.profile-mini {
+    margin: 0 7px 24px;
+    padding: 12px 0;
+    border-top: 1px solid #ffffff13;
+    border-bottom: 1px solid #ffffff13;
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.profile-mini i {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #2d7180;
+    color: #fff;
+    font-style: normal;
+    font-size: .8rem
+}
+
+.profile-mini b,
+.profile-mini small {
+    display: block;
+    font-size: .75rem
+}
+
+.profile-mini small {
+    color: #8299ad;
+    font-size: .65rem
+}
+
+.menu-label {
+    font-size: .6rem;
+    letter-spacing: .12em;
+    color: #71899e;
+    font-weight: 700;
+    margin: 20px 11px 6px
+}
+
+.mis-menu>a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 9px 11px;
+    margin: 2px 0;
+    border-radius: 7px;
+    color: #b7c6d6;
+    font-size: .82rem
+}
+
+.mis-menu>a span {
+    display: inline-grid;
+    width: 18px;
+    text-align: center;
+    color: #82e6da;
+    font-size: 1rem
+}
+
+.mis-menu>a:hover,
+.mis-menu>a.active {
+    background: #ffffff13;
+    color: #fff
+}
+
+.mis-menu>a.active {
+    box-shadow: inset -3px 0 #22c5b5
+}
+
+.mis-content {
+    padding: 35px 42px 50px
+}
+
+.mis-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px
+}
+
+.mis-top p,
+.quick-card p {
+    margin: 0;
+    color: #0f8b80;
+    font-size: .66rem;
+    letter-spacing: .13em;
+    font-weight: 700
+}
+
+.mis-top h1 {
+    font-size: 1.7rem;
+    margin: 3px 0
+}
+
+.mis-top span {
+    color: #7b8a9e;
+    font-size: .85rem
+}
+
+.add-student {
+    display: inline-block;
+    border-radius: 9px;
+    background: #0f766e;
+    color: #fff;
+    padding: 11px 15px;
+    font-size: .8rem;
+    font-weight: 700;
+    box-shadow: 0 6px 14px #0f766e30
+}
+
+.mis-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 25px
+}
+
+.metric {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 18px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e6ecf3
+}
+
+.metric>span {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    font-size: 1.2rem
+}
+
+.metric b,
+.metric small {
+    display: block
+}
+
+.metric b {
+    font-size: 1.35rem;
+    line-height: 1.3
+}
+
+.metric small {
+    font-size: .72rem;
+    color: #738196
+}
+
+.metric.teal>span {
+    background: #e2f8f4;
+    color: #0f8b80
+}
+
+.metric.blue>span {
+    background: #e8f0ff;
+    color: #396cc4
+}
+
+.metric.amber>span {
+    background: #fff3dd;
+    color: #c57d10
+}
+
+.metric.purple>span {
+    background: #f1eaff;
+    color: #7b52bb
+}
+
+.mis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+.mis-card {
+    background: #fff;
+    border: 1px solid #e6ecf3;
+    border-radius: 13px;
+    padding: 20px
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 17px
+}
+
+.card-title h2 {
+    font-size: 1rem;
+    margin: 0
+}
+
+.card-title span {
+    display: block;
+    color: #8491a2;
+    font-size: .7rem
+}
+
+.card-title>a {
+    font-size: .72rem;
+    font-weight: 700
+}
+
+.mis-card table {
+    border: 0;
+    border-radius: 0;
+    font-size: .8rem
+}
+
+.mis-card th {
+    background: #f6f8fb;
+    font-size: .7rem
+}
+
+.mis-card th,
+.mis-card td {
+    padding: 9px
+}
+
+.empty {
+    text-align: center !important;
+    color: #8995a4;
+    padding: 24px !important
+}
+
+.code {
+    color: #0f766e;
+    background: #e9f8f5;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: .68rem
+}
+
+.balance {
+    color: #c57d10
+}
+
+.quick-card {
+    margin-top: 21px;
+    padding: 20px 23px;
+    border-radius: 13px;
+    background: linear-gradient(110deg, #e8f5f4, #eaf0fb);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px
+}
+
+.quick-card h2 {
+    font-size: 1rem;
+    margin: 4px 0
+}
+
+.quick-card>div:last-child {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap
+}
+
+.quick-card a {
+    border: 1px solid #d0e1e3;
+    border-radius: 7px;
+    background: #fff;
+    padding: 7px 10px;
+    color: #365168;
+    font-size: .72rem;
+    font-weight: 700
+}
+
+@media(max-width:1050px) {
+    .mis-content {
+        padding: 30px 25px
+    }
+
+    .mis-stats {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .mis-grid {
+        grid-template-columns: 1fr
+    }
+}
+
+@media(max-width:720px) {
+    .mis-shell {
+        grid-template-columns: 1fr
+    }
+
+    .mis-sidebar {
+        padding: 15px
+    }
+
+    .mis-brand,
+    .profile-mini {
+        margin-bottom: 10px
+    }
+
+    .mis-menu {
+        display: flex;
+        gap: 3px;
+        overflow: auto
+    }
+
+    .mis-menu>a {
+        white-space: nowrap
+    }
+
+    .mis-menu .menu-label {
+        display: none
+    }
+
+    .mis-menu>a.active {
+        box-shadow: inset 0 -3px #22c5b5
+    }
+
+    .mis-content {
+        padding: 25px 16px
+    }
+
+    .mis-top,
+    .quick-card {
+        align-items: flex-start;
+        flex-direction: column
+    }
+
+    .mis-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px
+    }
+
+    .metric {
+        padding: 12px;
+        gap: 8px
+    }
+
+    .metric>span {
+        width: 35px;
+        height: 35px
+    }
+
+    .mis-grid {
+        gap: 12px
+    }
+}

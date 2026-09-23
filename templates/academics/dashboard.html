@@ -1,0 +1,93 @@
+{% extends 'base_mis.html' %}
+{% block title %}MIS داشبورډ | Education Center{% endblock %}
+{% block content %}
+<main class="mis-app">
+  <input class="mis-menu-toggle" id="mis-menu-toggle" type="checkbox">
+  <label class="mis-menu-button" for="mis-menu-toggle" aria-label="مېنو پرانیزئ">☰</label>
+
+  <aside class="mis-sidebar-v2">
+    <a class="mis-logo" href="{% url 'dashboard' %}"><span>EC</span><div><b>Education Center</b><small>MIS MANAGEMENT SYSTEM</small></div></a>
+
+    <div class="mis-user">
+      <div class="mis-user-avatar">
+        {% if user_profile.photo %}
+          <img src="{{ user_profile.photo.url }}" alt="{{ user.get_full_name|default:user.username }}">
+        {% else %}
+          <span>{{ user.get_full_name|default:user.username|first|upper }}</span>
+        {% endif %}
+      </div>
+      <div>
+        <b>{{ user.get_full_name|default:user.username }}</b>
+        <small><i></i> {{ user_profile.get_role_display|default:'سیستم مدیر' }}</small>
+      </div>
+    </div>
+
+    <nav class="mis-navigation" aria-label="اصلي مېنو">
+      <section><h2>اصلي مېنو</h2><ul>
+        <li><a class="active" href="{% url 'dashboard' %}"><span>▦</span> داشبورډ</a></li>
+        <li><a href="/admin/academics/student/"><span>♙</span> زده‌کوونکي</a></li>
+        <li><a href="/admin/academics/teacher/"><span>♟</span> استادان</a></li>
+      </ul></section>
+      <section><h2>تعلیمي مدیریت</h2><ul>
+        <li><a href="/admin/academics/course/"><span>▤</span> کورسونه</a></li>
+        <li><a href="/admin/academics/classroom/"><span>▣</span> ټولګي او مهالویش</a></li>
+        <li><a href="/admin/academics/enrollment/"><span>✓</span> داخلې</a></li>
+        <li><a href="/admin/academics/attendance/"><span>◷</span> حاضري</a></li>
+        <li><a href="/admin/academics/exam/"><span>✎</span> امتحانونه</a></li>
+      </ul></section>
+      <section><h2>مالي مدیریت</h2><ul>
+        <li><a href="/admin/academics/invoice/"><span>◈</span> فیسونه او بلونه <em>{{ due_invoice_count }}</em></a></li>
+        <li><a href="/admin/academics/payment/"><span>▧</span> تادیات او رسیدونه</a></li>
+        {% if user_profile.role == 'manager' or user_profile.role == 'accountant' %}<li><a href="{% url 'mis_reports' %}"><span>▥</span> MIS راپورونه</a></li>{% endif %}
+      </ul></section>
+      <section><h2>سیستم</h2><ul>
+        <li><a href="{% url 'home' %}"><span>↗</span> وېب‌پاڼه وګورئ</a></li>
+      </ul></section>
+      <section><h2>پایلې او کارکوونکي</h2><ul>
+        <li><a href="/admin/academics/result/"><span>✓</span> د امتحان پایلې</a></li>
+        <li><a href="/admin/academics/staffprofile/"><span>◉</span> د کارکوونکو رولونه</a></li>
+        <li><a href="/admin/auth/user/"><span>♙</span> کاروونکي</a></li>
+        <li><a href="/admin/auth/group/"><span>◌</span> د اجازو ګروپونه</a></li>
+      </ul></section>
+      <section><h2>وېب‌پاڼه او اړیکې</h2><ul>
+        <li><a href="/admin/core/sitesetting/"><span>⚙</span> د مرکز تنظیمات</a></li>
+        <li><a href="/admin/core/service/"><span>▤</span> خدمتونه</a></li>
+        <li><a href="/admin/core/news/"><span>▧</span> خبرونه</a></li>
+        <li><a href="/admin/core/contactmessage/"><span>✉</span> د اړیکو پیغامونه</a></li>
+        <li><a href="/admin/"><span>▦</span> بشپړ Admin پینل</a></li>
+      </ul></section>
+    </nav>
+
+    <form class="mis-logout-form" method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit"><span>↪</span> وتل</button></form>
+  </aside>
+
+  <section class="mis-main">
+    <header class="mis-header-v2">
+      <div><p>عمومي کتنه</p><h1>سلام، {{ user.first_name|default:user.username }} <span>👋</span></h1><small>د مرکز مهم معلومات او فعالیتونه په یوه ځای کې وګورئ.</small></div>
+      <div class="mis-header-actions">
+        <form method="get" action="/admin/academics/student/" class="mis-search"><input name="q" type="search" placeholder="زده‌کوونکی ولټوئ"><button type="submit">⌕</button></form>
+        <a class="mis-primary" href="/admin/academics/student/add/">＋ زده‌کوونکی</a>
+      </div>
+    </header>
+
+    <section class="mis-kpis" aria-label="لنډ احصایې">
+      <article class="kpi teal"><span>♙</span><div><small>فعال زده‌کوونکي</small><b>{{ student_count }}</b><em>{{ enrollment_count }} فعاله داخله</em></div></article>
+      <article class="kpi blue"><span>◈</span><div><small>ترلاسه شوي فیسونه</small><b>{{ collected|floatformat:0 }}</b><em>ټول ثبت شوي تادیات</em></div></article>
+      <article class="kpi amber"><span>◷</span><div><small>پاتې فیسونه</small><b>{{ outstanding|floatformat:0 }}</b><em>{{ due_invoice_count }} بلونه د پیسو په تمه</em></div></article>
+      <article class="kpi violet"><span>▣</span><div><small>فعال ټولګي</small><b>{{ class_count }}</b><em>{{ teacher_count }} استادان په سیستم کې</em></div></article>
+    </section>
+
+    <section class="mis-notice"><span>✓</span><div><b>د نن ورځې فعالیت</b><small>نن {{ attendance_today }} د حاضرۍ ثبتونه شوي دي.</small></div><a href="/admin/academics/attendance/">حاضري اداره کړئ ←</a></section>
+
+    <section class="mis-panels">
+      <article class="mis-panel"><header><div><h2>وروستي زده‌کوونکي</h2><small>په تازه ډول ثبت شوي زده‌کوونکي</small></div><a href="/admin/academics/student/">ټول وګورئ</a></header><div class="mis-table-wrap"><table><thead><tr><th>کوډ</th><th>نوم</th><th>تلیفون</th></tr></thead><tbody>{% for s in recent_students %}<tr><td><b>{{ s.student_code }}</b></td><td>{{ s.full_name }}</td><td dir="ltr">{{ s.phone }}</td></tr>{% empty %}<tr><td colspan="3" class="mis-empty">تر اوسه زده‌کوونکی نه دی ثبت شوی.<a href="/admin/academics/student/add/">لومړی زده‌کوونکی اضافه کړئ</a></td></tr>{% endfor %}</tbody></table></div></article>
+      <article class="mis-panel"><header><div><h2>وروستي بلونه</h2><small>فیسونه او پاتې پیسې</small></div><a href="/admin/academics/invoice/">ټول وګورئ</a></header><div class="mis-table-wrap"><table><thead><tr><th>زده‌کوونکی</th><th>مقدار</th><th>پاتې</th></tr></thead><tbody>{% for invoice in recent_invoices %}<tr><td>{{ invoice.student.full_name }}</td><td>{{ invoice.amount|floatformat:0 }}</td><td class="mis-due">{{ invoice.balance|floatformat:0 }}</td></tr>{% empty %}<tr><td colspan="3" class="mis-empty">تر اوسه بل نشته.<a href="/admin/academics/invoice/add/">لومړی بل جوړ کړئ</a></td></tr>{% endfor %}</tbody></table></div></article>
+    </section>
+
+    <section class="mis-bottom-row">
+      <article class="mis-quick"><div><p>چټک کارونه</p><h2>کارونه په چټکۍ ترسره کړئ</h2><small>له لاندې تڼیو څخه زیات کارېدونکي عملیات پرانیزئ.</small></div><div class="mis-quick-links"><a href="/admin/academics/student/add/"><span>＋</span> زده‌کوونکی</a><a href="/admin/academics/invoice/add/"><span>＋</span> بل / فیس</a><a href="/admin/academics/attendance/"><span>◷</span> حاضري</a><a href="/admin/academics/exam/add/"><span>✎</span> امتحان</a></div></article>
+      <article class="mis-status"><p><i></i> د سیستم وضعیت</p><div><span>کورسونه <b>{{ course_count }}</b></span><span>ټول بلونه <b>{{ invoice_count }}</b></span><span>فعال زده‌کوونکي <b>{{ student_count }}</b></span></div><a href="/admin/">تفصیلي اداره ←</a></article>
+    </section>
+  </section>
+</main>
+{% endblock %}

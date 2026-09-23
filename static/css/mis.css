@@ -1,0 +1,190 @@
+body:has(.mis-page)>header,
+body:has(.mis-page)>footer {
+    display: none
+}
+
+.mis-page {
+    min-height: 100vh;
+    padding: 48px;
+    max-width: 1440px;
+    margin: auto;
+    background: #f5f8fc;
+    color: #17324b
+}
+
+.mis-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 32px
+}
+
+.mis-header p {
+    margin: 0;
+    color: #078579;
+    font-size: .75rem;
+    font-weight: 800
+}
+
+.mis-header h1 {
+    margin: 4px 0;
+    font-size: 2rem
+}
+
+.mis-header span {
+    color: #718397;
+    font-size: .84rem
+}
+
+.mis-header>a {
+    padding: 11px 15px;
+    border: 1px solid #cde4e4;
+    border-radius: 9px;
+    background: #fff;
+    color: #087e74;
+    font-weight: 700;
+    font-size: .8rem
+}
+
+.mis-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px
+}
+
+.mis-metrics article,
+.mis-card {
+    background: #fff;
+    border: 1px solid #e1eaf1;
+    border-radius: 14px;
+    box-shadow: 0 9px 24px #213b5a0d
+}
+
+.mis-metrics article {
+    padding: 20px;
+    border-top: 4px solid #20b7a7
+}
+
+.mis-metrics .warning {
+    border-top-color: #e3a22d
+}
+
+.mis-metrics small,
+.mis-metrics span {
+    display: block;
+    color: #718397;
+    font-size: .73rem
+}
+
+.mis-metrics b {
+    display: block;
+    margin: 8px 0 5px;
+    font-size: 1.7rem;
+    color: #18344f
+}
+
+.mis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+.mis-card {
+    padding: 20px
+}
+
+.mis-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 17px
+}
+
+.mis-title h2 {
+    margin: 0;
+    font-size: 1.05rem
+}
+
+.mis-title span {
+    display: block;
+    margin-top: 3px;
+    color: #7b8b9d;
+    font-size: .72rem
+}
+
+.mis-title>b,
+.mis-title>a {
+    padding: 6px 9px;
+    border-radius: 6px;
+    background: #ebf8f6;
+    color: #087e74;
+    font-size: .7rem
+}
+
+.mis-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem
+}
+
+.mis-card th,
+.mis-card td {
+    padding: 11px 8px;
+    text-align: right;
+    border-bottom: 1px solid #edf1f5
+}
+
+.mis-card th {
+    color: #728398;
+    background: #f7f9fc;
+    font-size: .71rem
+}
+
+.mis-card strong {
+    color: #078579
+}
+
+.mis-balance {
+    font-weight: 800;
+    color: #bd7710
+}
+
+.mis-empty {
+    text-align: center;
+    color: #8291a1;
+    padding: 26px !important
+}
+
+@media(max-width:900px) {
+    .mis-page {
+        padding: 28px 18px
+    }
+
+    .mis-metrics,
+    .mis-grid {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+@media(max-width:600px) {
+    .mis-header {
+        align-items: start;
+        flex-direction: column
+    }
+
+    .mis-metrics,
+    .mis-grid {
+        grid-template-columns: 1fr
+    }
+
+    .mis-page {
+        padding: 24px 14px
+    }
+
+    .mis-header h1 {
+        font-size: 1.6rem
+    }
+}

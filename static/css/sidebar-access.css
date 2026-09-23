@@ -1,0 +1,17 @@
+.mis-sidebar {
+    overflow-y: auto;
+    scrollbar-color: #ffffff38 transparent;
+    scrollbar-width: thin
+}
+
+.mis-sidebar .sidebar-section:last-of-type {
+    padding-bottom: 12px
+}
+
+.mis-menu>a {
+    white-space: nowrap
+}
+
+.mis-menu>a span {
+    flex: 0 0 18px
+}

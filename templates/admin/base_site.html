@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}Education Center MIS{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="site-name"><a href="{% url 'admin:index' %}"><span class="admin-logo">EC</span><span>Education Center<small>MIS ADMIN PANEL</small></span></a></div>
+{% endblock %}
+
+{# Keep every admin screen focused on the centre's records and actions. #}
+{% block usertools %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block nav-global %}<a class="admin-view-site" href="{% url 'dashboard' %}">↗ MIS Dashboard</a>{% endblock %}
