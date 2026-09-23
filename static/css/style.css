@@ -978,3 +978,184 @@ footer {
         grid-template-columns: 1fr
     }
 }
+
+/* =====================================================
+   MODERN EDUCATION CENTER HEADER - 2026
+===================================================== */
+
+.main-header {
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid #dce7e6;
+    box-shadow: 0 8px 28px rgba(15, 118, 110, 0.08);
+    backdrop-filter: blur(14px);
+}
+
+.header-container {
+    max-width: 1280px;
+    min-height: 82px;
+    padding: 0 24px;
+}
+
+.site-logo {
+    gap: 12px;
+}
+
+.logo-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #14b8a6, #0f766e);
+    box-shadow: 0 8px 18px rgba(15, 118, 110, 0.22);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.site-logo:hover .logo-mark {
+    transform: translateY(-2px) rotate(-3deg);
+    box-shadow: 0 12px 24px rgba(15, 118, 110, 0.25);
+}
+
+.logo-text strong {
+    font-size: 18px;
+    letter-spacing: -.2px;
+}
+
+.logo-text small {
+    margin-top: 2px;
+    font-size: 8px;
+    color: #0f766e;
+}
+
+.main-nav {
+    gap: 2px;
+}
+
+.main-nav a {
+    position: relative;
+    padding: 10px 14px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    right: 14px;
+    left: 14px;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 99px;
+    background: #0f766e;
+    transform: scaleX(0);
+    transition: transform .2s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    transform: scaleX(1);
+}
+
+.main-nav a.active {
+    color: #0f766e;
+    background: #f0fdfa;
+}
+
+.header-account-actions {
+    gap: 7px;
+}
+
+.header-login,
+.header-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    transition: all .2s ease;
+}
+
+.header-login {
+    background: #f0fdfa !important;
+    border: 1px solid #99f6e4;
+    color: #0f766e !important;
+}
+
+.header-login:hover {
+    background: #0f766e !important;
+    color: #fff !important;
+    border-color: #0f766e;
+    transform: translateY(-1px);
+}
+
+.header-logout {
+    border: 1px solid #fecdd3;
+}
+
+.header-logout:hover {
+    transform: translateY(-1px);
+}
+
+.mobile-menu-btn {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, .06);
+}
+
+@media (max-width: 850px) {
+    .header-container {
+        min-height: 74px;
+    }
+
+    .main-nav {
+        top: 74px;
+        border-color: #dce7e6;
+    }
+
+    .main-nav a::after {
+        display: none;
+    }
+
+    .header-account-actions {
+        position: static;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        min-height: 68px;
+        padding: 0 14px;
+        gap: 10px;
+    }
+
+    .logo-mark {
+        width: 42px;
+        height: 42px;
+    }
+
+    .logo-text strong {
+        font-size: 14px;
+    }
+
+    .logo-text small {
+        font-size: 6px;
+    }
+
+    .header-account-actions {
+        right: auto;
+        gap: 4px;
+    }
+
+    .header-account-actions .header-login,
+    .header-account-actions .header-logout {
+        min-height: 36px;
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+
+    .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+    }
+}
