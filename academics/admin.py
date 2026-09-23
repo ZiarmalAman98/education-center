@@ -56,7 +56,7 @@ ROLE_MODEL_PERMS = {
 }
 
 
-class RoleBasedModelAdmin(RoleBasedModelAdmin):
+class RoleBasedModelAdmin(admin.ModelAdmin):
     """Enforce the MIS role matrix at the Django admin boundary."""
 
     def _allowed(self, request, action):
