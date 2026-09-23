@@ -6,11 +6,12 @@ from decimal import Decimal
 from django.db.models import Count, Q, Sum
 from django.db.models.functions import Coalesce
 from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from .models import Attendance, Expense, Invoice, Notification, Payment, Result, Student
 from .models import ClassRoom, Course, Enrollment, Exam, StaffProfile, Teacher
-from .permissions import role_required
+from .permissions import role_required, teacher_can_access_exam, teacher_can_access_student
 
 @role_required(
     StaffProfile.Role.MANAGER,
@@ -220,6 +221,10 @@ def attendance_csv(request):
 def student_profile(request, pk):
     """A complete, print-friendly student overview."""
     student = get_object_or_404(Student, pk=pk)
+    if request.user.is_authenticated and not request.user.is_superuser:
+        profile = StaffProfile.objects.filter(user=request.user, is_active=True).first()
+        if profile and profile.role == StaffProfile.Role.TEACHER and not teacher_can_access_student(request.user, student):
+            raise PermissionDenied
     enrollments = student.enrollments.select_related('classroom__course', 'classroom__teacher').prefetch_related('attendance_set')
     invoices = student.invoices.select_related('classroom').prefetch_related('payments').order_by('-due_date', '-pk')
     attendance = Attendance.objects.filter(enrollment__student=student).select_related('enrollment__classroom').order_by('-date')
@@ -252,6 +257,10 @@ def payment_receipt(request, pk):
 )
 def result_sheet(request, exam_id):
     exam = get_object_or_404(Exam.objects.select_related('classroom__course', 'classroom__teacher'), pk=exam_id)
+    if request.user.is_authenticated and not request.user.is_superuser:
+        profile = StaffProfile.objects.filter(user=request.user, is_active=True).first()
+        if profile and profile.role == StaffProfile.Role.TEACHER and not teacher_can_access_exam(request.user, exam):
+            raise PermissionDenied
     results = Result.objects.filter(exam=exam).select_related('student').order_by('-marks', 'student__full_name')
     return render(request, 'academics/result_sheet.html', {'exam': exam, 'results': results})
 

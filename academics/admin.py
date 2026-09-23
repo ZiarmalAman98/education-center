@@ -6,6 +6,81 @@ from django.urls import reverse
 from django.utils.html import format_html
 
 from .models import Attendance, ClassRoom, Course, Enrollment, Exam, Expense, Invoice, Notification, Payment, Result, StaffProfile, Student, Teacher, TeacherSalaryPayment
+from .permissions import get_role
+
+
+# Admin permissions are intentionally role-based. Django's admin still requires
+# is_staff=True, while this layer prevents an active staff role from receiving
+# business permissions it was not assigned.
+ROLE_MODEL_PERMS = {
+    StaffProfile.Role.MANAGER: {
+        "Student": {"view", "add", "change", "delete"},
+        "Teacher": {"view", "add", "change", "delete"},
+        "Course": {"view", "add", "change", "delete"},
+        "ClassRoom": {"view", "add", "change", "delete"},
+        "Enrollment": {"view", "add", "change", "delete"},
+        "Attendance": {"view", "add", "change", "delete"},
+        "Invoice": {"view", "add", "change", "delete"},
+        "Payment": {"view", "add", "change", "delete"},
+        "Expense": {"view", "add", "change", "delete"},
+        "TeacherSalaryPayment": {"view", "add", "change", "delete"},
+        "Exam": {"view", "add", "change", "delete"},
+        "Result": {"view", "add", "change", "delete"},
+        "Notification": {"view", "add", "change", "delete"},
+    },
+    StaffProfile.Role.ACCOUNTANT: {
+        "Student": {"view"},
+        "Teacher": {"view"},
+        "Course": {"view"},
+        "ClassRoom": {"view"},
+        "Enrollment": {"view"},
+        "Attendance": {"view"},
+        "Invoice": {"view", "add", "change"},
+        "Payment": {"view", "add", "change"},
+        "Expense": {"view", "add", "change"},
+        "TeacherSalaryPayment": {"view", "add", "change"},
+        "Exam": {"view"},
+        "Result": {"view"},
+        "Notification": {"view"},
+    },
+    StaffProfile.Role.RECEPTION: {
+        "Student": {"view", "add", "change"},
+        "Teacher": {"view"},
+        "Course": {"view"},
+        "ClassRoom": {"view"},
+        "Enrollment": {"view", "add", "change"},
+        "Attendance": {"view", "add", "change"},
+        "Exam": {"view"},
+        "Result": {"view"},
+    },
+}
+
+
+class RoleBasedModelAdmin(admin.ModelAdmin):
+    """Enforce the MIS role matrix at the Django admin boundary."""
+
+    def _allowed(self, request, action):
+        role = get_role(request.user)
+        if role == StaffProfile.Role.SUPER_ADMIN:
+            return True
+        return action in ROLE_MODEL_PERMS.get(role, {}).get(self.model.__name__, set())
+
+    def has_module_permission(self, request):
+        return self._allowed(request, "view")
+
+    def has_view_permission(self, request, obj=None):
+        return self._allowed(request, "view")
+
+    def has_add_permission(self, request):
+        return self._allowed(request, "add")
+
+    def has_change_permission(self, request, obj=None):
+        return self._allowed(request, "change")
+
+    def has_delete_permission(self, request, obj=None):
+        return self._allowed(request, "delete")
+
+
 
 
 def _enrollment_details(student):
@@ -15,7 +90,7 @@ def _enrollment_details(student):
 
 
 @admin.register(Student)
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(RoleBasedModelAdmin):
     list_display = (
         'student_code', 'full_name', 'father_name', 'phone', 'guardian_phone',
         'classes', 'courses', 'teachers', 'class_start_dates', 'class_times',
@@ -124,7 +199,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
+class TeacherAdmin(RoleBasedModelAdmin):
     list_display = ('full_name', 'phone', 'email', 'specialty', 'salary', 'assigned_classes')
     search_fields = ('full_name', 'phone', 'specialty', 'classroom__title', 'classroom__course__name', 'classroom__schedule')
     list_filter = ('specialty',)
@@ -139,14 +214,14 @@ class TeacherAdmin(admin.ModelAdmin):
 
 
 @admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(RoleBasedModelAdmin):
     list_display = ('name', 'level', 'duration_months', 'monthly_fee', 'is_active')
     list_filter = ('is_active', 'level')
     search_fields = ('name', 'level', 'description', '=monthly_fee')
 
 
 @admin.register(ClassRoom)
-class ClassRoomAdmin(admin.ModelAdmin):
+class ClassRoomAdmin(RoleBasedModelAdmin):
     list_display = ('title', 'course', 'teacher', 'room', 'schedule', 'start_date', 'end_date', 'attendance_weekdays', 'is_active')
     list_filter = ('is_active', 'course', 'teacher', 'start_date')
     search_fields = ('title', 'room', 'schedule', 'course__name', 'teacher__full_name')
@@ -154,7 +229,7 @@ class ClassRoomAdmin(admin.ModelAdmin):
 
 
 @admin.register(Enrollment)
-class EnrollmentAdmin(admin.ModelAdmin):
+class EnrollmentAdmin(RoleBasedModelAdmin):
     list_display = ('student', 'classroom', 'course', 'teacher', 'class_start', 'schedule', 'discount', 'enrolled_at', 'is_active')
     list_filter = ('is_active', 'classroom__course', 'classroom__teacher')
     search_fields = (
@@ -181,7 +256,7 @@ class EnrollmentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Attendance)
-class AttendanceAdmin(admin.ModelAdmin):
+class AttendanceAdmin(RoleBasedModelAdmin):
     list_display = ('enrollment', 'date', 'present', 'note')
     list_filter = ('present', 'date')
     search_fields = ('enrollment__student__full_name', 'enrollment__student__student_code', 'enrollment__classroom__title')
@@ -193,7 +268,7 @@ class PaymentInline(admin.TabularInline):
 
 
 @admin.register(Invoice)
-class InvoiceAdmin(admin.ModelAdmin):
+class InvoiceAdmin(RoleBasedModelAdmin):
     list_display = ('id', 'student', 'classroom', 'title', 'amount', 'due_date', 'balance')
     list_filter = ('classroom', 'due_date',)
     search_fields = ('student__student_code', 'student__full_name', 'student__father_name', 'classroom__title', 'title')
@@ -202,7 +277,7 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 
 @admin.register(Payment)
-class PaymentAdmin(admin.ModelAdmin):
+class PaymentAdmin(RoleBasedModelAdmin):
     list_display = ('receipt_no', 'invoice', 'amount', 'paid_at', 'print_receipt')
     list_filter = ('paid_at', 'invoice__classroom')
     search_fields = ('receipt_no', 'invoice__student__full_name', 'invoice__student__student_code', 'note')
@@ -214,7 +289,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Expense)
-class ExpenseAdmin(admin.ModelAdmin):
+class ExpenseAdmin(RoleBasedModelAdmin):
     list_display = ('receipt_no', 'title', 'category', 'amount', 'spent_at')
     list_filter = ('category', 'spent_at')
     search_fields = ('receipt_no', 'title', 'note')
@@ -222,14 +297,14 @@ class ExpenseAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeacherSalaryPayment)
-class TeacherSalaryPaymentAdmin(admin.ModelAdmin):
+class TeacherSalaryPaymentAdmin(RoleBasedModelAdmin):
     list_display = ('receipt_no', 'teacher', 'amount', 'paid_at')
     list_filter = ('paid_at', 'teacher')
     search_fields = ('receipt_no', 'teacher__full_name', 'note')
 
 
 @admin.register(Notification)
-class NotificationAdmin(admin.ModelAdmin):
+class NotificationAdmin(RoleBasedModelAdmin):
     list_display = ('title', 'kind', 'recipient', 'is_read', 'created_at')
     list_filter = ('kind', 'is_read', 'created_at')
     search_fields = ('title', 'message', 'recipient__username')
@@ -237,7 +312,7 @@ class NotificationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Result)
-class ResultAdmin(admin.ModelAdmin):
+class ResultAdmin(RoleBasedModelAdmin):
     list_display = ('exam', 'student', 'marks', 'percentage_value', 'grade_value', 'pass_status')
     list_filter = ('exam',)
     search_fields = ('student__student_code', 'student__full_name', 'exam__title')
@@ -257,7 +332,7 @@ class ResultAdmin(admin.ModelAdmin):
 
 
 @admin.register(StaffProfile)
-class StaffProfileAdmin(admin.ModelAdmin):
+class StaffProfileAdmin(RoleBasedModelAdmin):
     list_display = ('user', 'role', 'phone', 'has_photo', 'is_active')
     list_filter = ('role', 'is_active')
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'phone')
@@ -281,10 +356,28 @@ class StaffProfileInline(admin.StackedInline):
 class EducationCenterUserAdmin(UserAdmin):
     inlines = (StaffProfileInline,)
 
+    def _superuser_only(self, request):
+        return request.user.is_superuser
+
+    def has_module_permission(self, request):
+        return self._superuser_only(request)
+
+    def has_view_permission(self, request, obj=None):
+        return self._superuser_only(request)
+
+    def has_add_permission(self, request):
+        return self._superuser_only(request)
+
+    def has_change_permission(self, request, obj=None):
+        return self._superuser_only(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return self._superuser_only(request)
+
 
 User = get_user_model()
 admin.site.unregister(User)
 admin.site.register(User, EducationCenterUserAdmin)
 
 
-admin.site.register([Exam])
+admin.site.register(Exam, RoleBasedModelAdmin)
